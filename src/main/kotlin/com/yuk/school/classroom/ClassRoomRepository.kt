@@ -11,4 +11,8 @@ class ClassRoomRepository(
     fun save(entity: ClassRoom): Mono<ClassRoom> {
         return repository.save(entity)
     }
+
+    fun get(classRoomId: ClassRoomId): Mono<ClassRoom> {
+        return repository.findById(classRoomId.value)
+    }
 }
