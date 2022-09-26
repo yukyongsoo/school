@@ -1,5 +1,6 @@
 package com.yuk.school.classroom
 
+import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -21,29 +22,29 @@ class ClassRoomServiceTest {
 
     @Test
     fun `신규 반 생성`() {
-        given(classRoomRepository.save(any())).willReturn(
-            Mono.just(ClassRoom(1, "1"))
-        )
+        runBlocking {
+            given(classRoomRepository.save(any())).willReturn(
+                ClassRoom(1, "1")
+            )
 
-        StepVerifier.create(classRoomService.save())
-            .assertNext {
-                assertThat(it.grade).isEqualTo(1)
-                assertThat(it.name).isEqualTo("1")
-            }
-            .verifyComplete()
+            val saved = classRoomService.save()
+
+            assertThat(saved.grade).isEqualTo(1)
+            assertThat(saved.name).isEqualTo("1")
+        }
     }
 
     @Test
     fun `반 정보 조회`() {
-        given(classRoomRepository.get(any())).willReturn(
-            Mono.just(ClassRoom(1, "1"))
-        )
+        runBlocking {
+            given(classRoomRepository.get(any())).willReturn(
+                ClassRoom(1, "1")
+            )
 
-        StepVerifier.create(classRoomService.get(ClassRoomId.fromString("507f1f77bcf86cd799439011")))
-            .assertNext {
-                assertThat(it.grade).isEqualTo(1)
-                assertThat(it.name).isEqualTo("1")
-            }
-            .verifyComplete()
+            val classRoom = classRoomService.get(ClassRoomId.fromString("507f1f77bcf86cd799439011"))
+
+            assertThat(classRoom.grade).isEqualTo(1)
+            assertThat(classRoom.name).isEqualTo("1")
+        }
     }
 }

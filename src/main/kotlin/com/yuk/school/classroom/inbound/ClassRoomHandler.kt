@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
+import org.springframework.web.reactive.function.server.bodyValueAndAwait
+import org.springframework.web.reactive.function.server.buildAndAwait
+import org.springframework.web.reactive.function.server.coRouter
 import org.springframework.web.reactive.function.server.router
 import reactor.core.publisher.Mono
 
@@ -23,7 +26,7 @@ class ClassRoomHandler(
         RouterOperation(path = "/classroom", beanMethod = "save", beanClass = ClassRoomHandler::class),
         RouterOperation(path = "/classroom/{id}", beanMethod = "get", beanClass = ClassRoomHandler::class),
     )
-    fun route() = router {
+    fun route() = coRouter {
         "/classroom".nest {
             POST("", ::save)
             GET("/{id}", ::get)
@@ -31,23 +34,17 @@ class ClassRoomHandler(
     }
 
 
-    fun save(request: ServerRequest): Mono<ServerResponse> {
-        return classRoomService.save()
-            .flatMap {
-                ServerResponse.ok().build()
-            }
+    suspend fun save(request: ServerRequest): ServerResponse {
+        classRoomService.save()
+
+        return ServerResponse.ok().buildAndAwait()
     }
 
-    fun get(request: ServerRequest): Mono<ServerResponse> {
+    suspend fun get(request: ServerRequest): ServerResponse {
         val id = request.pathVariable("id")
         val classId = ClassRoomId.fromString(id)
 
-        return classRoomService.get(classId)
-            .flatMap {
-                ServerResponse.ok().bodyValue(it)
-            }
-            .onErrorResume {
-                ServerResponse.badRequest().build()
-            }
+        val classRoom = classRoomService.get(classId)
+        return ServerResponse.ok().bodyValueAndAwait(classRoom)
     }
 }

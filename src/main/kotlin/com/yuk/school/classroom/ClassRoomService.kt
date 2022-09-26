@@ -8,16 +8,19 @@ import reactor.core.publisher.Mono
 class ClassRoomService(
     private val classRoomRepository: ClassRoomRepository
 ) {
-    fun save(): Mono<ClassRoom> {
+    suspend fun save(): ClassRoom {
         val entity = ClassRoom(1, "1")
 
-        return classRoomRepository.save(entity)
+        val saved = classRoomRepository.save(entity)
+            ?: throw RuntimeException()
+
+        return saved
     }
 
-    fun get(classRoomId: ClassRoomId): Mono<ClassRoom> {
-        return classRoomRepository.get(classRoomId)
-            .switchIfEmpty(
-                Mono.error(IllegalArgumentException())
-            )
+    suspend fun get(classRoomId: ClassRoomId): ClassRoom {
+         val classRoom = classRoomRepository.get(classRoomId)
+             ?: throw RuntimeException()
+
+        return classRoom
     }
 }
