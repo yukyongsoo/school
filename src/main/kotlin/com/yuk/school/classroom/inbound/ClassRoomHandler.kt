@@ -2,20 +2,15 @@ package com.yuk.school.classroom.inbound
 
 import com.yuk.school.classroom.ClassRoomId
 import com.yuk.school.classroom.ClassRoomService
-import io.swagger.v3.oas.annotations.Operation
 import org.springdoc.core.annotations.RouterOperation
 import org.springdoc.core.annotations.RouterOperations
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
 import org.springframework.stereotype.Component
-import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.bodyValueAndAwait
 import org.springframework.web.reactive.function.server.buildAndAwait
 import org.springframework.web.reactive.function.server.coRouter
-import org.springframework.web.reactive.function.server.router
-import reactor.core.publisher.Mono
 
 @Component
 class ClassRoomHandler(
@@ -32,7 +27,6 @@ class ClassRoomHandler(
             GET("/{id}", ::get)
         }
     }
-
 
     suspend fun save(request: ServerRequest): ServerResponse {
         classRoomService.save()
