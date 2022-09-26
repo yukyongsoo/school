@@ -1,5 +1,6 @@
 package com.yuk.school.classroom.inbound
 
+import com.yuk.school.WebErrorHandler
 import com.yuk.school.classroom.ClassRoom
 import com.yuk.school.classroom.ClassRoomService
 import kotlinx.coroutines.runBlocking
@@ -9,10 +10,12 @@ import org.mockito.kotlin.given
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest
 import org.springframework.boot.test.mock.mockito.MockBean
+import org.springframework.context.annotation.Import
 import org.springframework.test.web.reactive.server.WebTestClient
 import org.springframework.test.web.reactive.server.expectBody
 
 @WebFluxTest(ClassRoomHandler::class)
+@Import(WebErrorHandler::class)
 class ClassRoomHandlerTest {
     @Autowired
     private lateinit var webTestClient: WebTestClient
@@ -47,5 +50,19 @@ class ClassRoomHandlerTest {
             .exchange()
             .expectStatus().isOk
             .expectBody<ClassRoom>()
+    }
+
+    @Test
+    fun `반 조회 실패`() {
+        runBlocking {
+            given(classRoomService.get(any())).willThrow(
+                RuntimeException()
+            )
+        }
+
+        webTestClient.get()
+            .uri("/classroom/{id}", "507f1f77bcf86cd799439011")
+            .exchange()
+            .expectStatus().isBadRequest
     }
 }
