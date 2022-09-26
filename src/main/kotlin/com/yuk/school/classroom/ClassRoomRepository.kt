@@ -1,6 +1,7 @@
 package com.yuk.school.classroom
 
 import com.yuk.school.classroom.outbound.ClassRoomMongoRepository
+import kotlinx.coroutines.reactive.awaitFirstOrNull
 import org.springframework.stereotype.Repository
 import reactor.core.publisher.Mono
 
@@ -8,11 +9,11 @@ import reactor.core.publisher.Mono
 class ClassRoomRepository(
     private val repository: ClassRoomMongoRepository
 ) {
-    fun save(entity: ClassRoom): Mono<ClassRoom> {
-        return repository.save(entity)
+     suspend fun save(entity: ClassRoom): ClassRoom? {
+        return repository.save(entity).awaitFirstOrNull()
     }
 
-    fun get(classRoomId: ClassRoomId): Mono<ClassRoom> {
-        return repository.findById(classRoomId.value)
+    suspend fun get(classRoomId: ClassRoomId): ClassRoom? {
+        return repository.findById(classRoomId.value).awaitFirstOrNull()
     }
 }

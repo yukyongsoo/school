@@ -2,6 +2,7 @@ package com.yuk.school.classroom.inbound
 
 import com.yuk.school.classroom.ClassRoom
 import com.yuk.school.classroom.ClassRoomService
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.any
 import org.mockito.kotlin.given
@@ -22,9 +23,11 @@ class ClassRoomHandlerTest {
 
     @Test
     fun `신규 반 생성`() {
-        given(classRoomService.save()).willReturn(
-            Mono.just(ClassRoom(1, "1"))
-        )
+        runBlocking {
+            given(classRoomService.save()).willReturn(
+                ClassRoom(1, "1")
+            )
+        }
 
         webTestClient.post()
             .uri("/classroom")
@@ -34,9 +37,11 @@ class ClassRoomHandlerTest {
 
     @Test
     fun `반 조회`() {
-        given(classRoomService.get(any())).willReturn(
-            Mono.just(ClassRoom(1, "1"))
-        )
+        runBlocking {
+            given(classRoomService.get(any())).willReturn(
+               ClassRoom(1, "1")
+            )
+        }
 
         webTestClient.get()
             .uri("/classroom/{id}", "507f1f77bcf86cd799439011")
