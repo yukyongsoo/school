@@ -1,6 +1,7 @@
 package com.yuk.school.classroom.outbound
 
 import com.yuk.school.classroom.ClassRoom
+import org.bson.types.ObjectId
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest
@@ -38,6 +39,12 @@ class ClassRoomMongoRepositoryTest {
 
         StepVerifier.create(classRoomMongoRepository.save(newClass))
             .assertNext { }
+            .verifyComplete()
+    }
+
+    @Test
+    fun `반 조회`() {
+        StepVerifier.create(classRoomMongoRepository.findById(ObjectId("507f1f77bcf86cd799439011")))
             .verifyComplete()
     }
 }
