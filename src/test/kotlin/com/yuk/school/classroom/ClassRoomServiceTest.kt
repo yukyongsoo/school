@@ -35,7 +35,7 @@ class ClassRoomServiceTest {
     @Test
     fun `반 정보 조회`() {
         runBlocking {
-            given(classRoomRepository.get(any())).willReturn(
+            given(classRoomRepository.getOrNull(any())).willReturn(
                 ClassRoom(1, "1")
             )
 

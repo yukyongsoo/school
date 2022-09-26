@@ -16,7 +16,7 @@ class ClassRoomService(
     }
 
     suspend fun get(classRoomId: ClassRoomId): ClassRoom {
-        val classRoom = classRoomRepository.get(classRoomId)
+        val classRoom = classRoomRepository.getOrNull(classRoomId)
             ?: throw RuntimeException()
 
         return classRoom

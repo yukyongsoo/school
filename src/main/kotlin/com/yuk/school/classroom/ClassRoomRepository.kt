@@ -12,7 +12,7 @@ class ClassRoomRepository(
         return repository.save(entity).awaitFirstOrNull()
     }
 
-    suspend fun get(classRoomId: ClassRoomId): ClassRoom? {
+    suspend fun getOrNull(classRoomId: ClassRoomId): ClassRoom? {
         return repository.findById(classRoomId.value).awaitFirstOrNull()
     }
 }
