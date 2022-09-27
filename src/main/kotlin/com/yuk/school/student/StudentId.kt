@@ -1,5 +1,9 @@
 package com.yuk.school.student
 
+import org.bson.types.ObjectId
+
 data class StudentId(
-    val value: Long
-)
+    val value: String
+) {
+    fun toObjectId() = ObjectId(value)
+}

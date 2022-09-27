@@ -7,7 +7,7 @@ data class ClassRoomId(
 ) {
     companion object {
         fun fromString(id: String): ClassRoomId {
-            if(ObjectId.isValid(id).not())
+            if (ObjectId.isValid(id).not())
                 throw IllegalArgumentException()
 
             return ClassRoomId(id)
