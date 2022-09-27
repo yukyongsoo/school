@@ -13,6 +13,6 @@ class ClassRoomRepository(
     }
 
     suspend fun getOrNull(classRoomId: ClassRoomId): ClassRoom? {
-        return repository.findById(classRoomId.value).awaitFirstOrNull()
+        return repository.findById(classRoomId.toObjectId()).awaitFirstOrNull()
     }
 }
