@@ -14,5 +14,5 @@ class ClassRoom(
     private var _id: ObjectId = ObjectId.get()
 
     @Transient
-    val id = ClassRoomId(_id)
+    val id = ClassRoomId(_id.toString())
 }
