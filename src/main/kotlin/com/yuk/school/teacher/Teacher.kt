@@ -14,5 +14,4 @@ class Teacher(
 
     @Transient
     val id = TeacherId(_id.toString())
-
 }
