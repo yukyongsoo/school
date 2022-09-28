@@ -6,5 +6,4 @@ data class TeacherId(
     val value: String
 ) {
     fun toObjectId() = ObjectId(value)
-
 }
