@@ -1,9 +1,12 @@
 package com.yuk.school.student.inbound
 
+import com.yuk.school.classroom.ClassRoomId
+import com.yuk.school.getObjectId
 import com.yuk.school.student.Student
 import com.yuk.school.student.StudentService
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
+import org.mockito.ArgumentMatchers.anyString
 import org.mockito.kotlin.any
 import org.mockito.kotlin.given
 import org.springframework.beans.factory.annotation.Autowired
@@ -22,12 +25,15 @@ class StudentHandlerTest {
     @Test
     fun `학생 등록`() {
         runBlocking {
-            given(studentService.save()).willReturn(
-                Student("학생")
+            given(studentService.save(anyString(), any())).willReturn(
+                Student("학생", ClassRoomId.fromString(getObjectId()))
             )
         }
 
+        val command = StudentCreateCommand("학생", getObjectId())
+
         webTestClient.post().uri("/student")
+            .bodyValue(command)
             .exchange()
             .expectStatus().isOk
     }
@@ -36,7 +42,7 @@ class StudentHandlerTest {
     fun `학생 조회`() {
         runBlocking {
             given(studentService.get(any())).willReturn(
-                Student("학생")
+                Student("학생", ClassRoomId.fromString(getObjectId()))
             )
         }
 
