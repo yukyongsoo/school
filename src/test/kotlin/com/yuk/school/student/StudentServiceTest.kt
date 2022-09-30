@@ -1,5 +1,7 @@
 package com.yuk.school.student
 
+import com.yuk.school.classroom.ClassRoomId
+import com.yuk.school.getObjectId
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -21,10 +23,10 @@ class StudentServiceTest {
     fun `학생 신규 등록`() {
         runBlocking {
             given(studentRepository.save(any())).willReturn(
-                Student("학생")
+                Student("학생", ClassRoomId.fromString(getObjectId()))
             )
 
-            studentService.save()
+            studentService.save("학생", ClassRoomId.fromString(getObjectId()))
         }
     }
 
@@ -32,7 +34,7 @@ class StudentServiceTest {
     fun `학생 조회`() {
         runBlocking {
             given(studentRepository.getOrNull(any())).willReturn(
-                Student("학생")
+                Student("학생", ClassRoomId.fromString(getObjectId()))
             )
 
             studentService.get(StudentId("507f1f77bcf86cd799439011"))

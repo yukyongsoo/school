@@ -1,11 +1,13 @@
 package com.yuk.school.student.inbound
 
+import com.yuk.school.classroom.ClassRoomId
 import com.yuk.school.student.StudentId
 import com.yuk.school.student.StudentService
 import org.springframework.context.annotation.Bean
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
+import org.springframework.web.reactive.function.server.awaitBody
 import org.springframework.web.reactive.function.server.bodyValueAndAwait
 import org.springframework.web.reactive.function.server.buildAndAwait
 import org.springframework.web.reactive.function.server.coRouter
@@ -23,7 +25,10 @@ class StudentHandler(
     }
 
     suspend fun save(request: ServerRequest): ServerResponse {
-        studentService.save()
+        val command = request.awaitBody<StudentCreateCommand>()
+        val classRoomId = ClassRoomId.fromString(command.classId)
+
+        studentService.save(command.name, classRoomId)
 
         return ServerResponse.ok().buildAndAwait()
     }

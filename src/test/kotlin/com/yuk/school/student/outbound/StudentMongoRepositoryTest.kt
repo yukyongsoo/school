@@ -1,5 +1,7 @@
 package com.yuk.school.student.outbound
 
+import com.yuk.school.classroom.ClassRoomId
+import com.yuk.school.getObjectId
 import com.yuk.school.student.Student
 import org.bson.types.ObjectId
 import org.junit.jupiter.api.Test
@@ -33,7 +35,8 @@ class StudentMongoRepositoryTest {
     @Test
     fun `신규 반 저장`() {
         val newStudent = Student(
-            "학생명"
+            "학생명",
+            ClassRoomId.fromString(getObjectId())
         )
 
         StepVerifier.create(studentMongoRepository.save(newStudent))
