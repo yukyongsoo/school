@@ -47,4 +47,11 @@ class ClassRoomMongoRepositoryTest {
         StepVerifier.create(classRoomMongoRepository.findById(ObjectId("507f1f77bcf86cd799439011")))
             .verifyComplete()
     }
+
+    @Test
+    fun `반 존재 여부 확인`() {
+        StepVerifier.create(classRoomMongoRepository.existsById(ObjectId("507f1f77bcf86cd799439011")))
+            .assertNext { }
+            .verifyComplete()
+    }
 }

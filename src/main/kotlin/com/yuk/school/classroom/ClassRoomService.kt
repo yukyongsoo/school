@@ -21,4 +21,8 @@ class ClassRoomService(
 
         return classRoom
     }
+
+    suspend fun exist(classRoomId: ClassRoomId): Boolean {
+        return classRoomRepository.exist(classRoomId)
+    }
 }
