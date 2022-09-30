@@ -1,6 +1,7 @@
 package com.yuk.school.classroom
 
 import com.yuk.school.classroom.outbound.ClassRoomMongoRepository
+import kotlinx.coroutines.reactive.awaitFirst
 import kotlinx.coroutines.reactive.awaitFirstOrNull
 import org.springframework.stereotype.Repository
 
@@ -14,5 +15,9 @@ class ClassRoomRepository(
 
     suspend fun getOrNull(classRoomId: ClassRoomId): ClassRoom? {
         return repository.findById(classRoomId.toObjectId()).awaitFirstOrNull()
+    }
+
+    suspend fun exist(classRoomId: ClassRoomId): Boolean {
+        return repository.existsById(classRoomId.toObjectId()).awaitFirst()
     }
 }
