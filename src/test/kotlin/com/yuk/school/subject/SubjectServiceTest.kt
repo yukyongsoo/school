@@ -24,7 +24,7 @@ class SubjectServiceTest {
                 Subject("과목")
             )
 
-            subjectService.save()
+            subjectService.save("과목")
         }
     }
 

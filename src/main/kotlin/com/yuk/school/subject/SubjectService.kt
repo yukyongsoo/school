@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service
 class SubjectService(
     private val subjectRepository: SubjectRepository
 ) {
-    suspend fun save(): Subject {
-        val entity = Subject("과목")
+    suspend fun save(name: String): Subject {
+        val entity = Subject(name)
 
         return subjectRepository.save(entity)
             ?: throw RuntimeException()

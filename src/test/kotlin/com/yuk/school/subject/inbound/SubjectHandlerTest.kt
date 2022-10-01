@@ -4,6 +4,7 @@ import com.yuk.school.subject.Subject
 import com.yuk.school.subject.SubjectService
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
+import org.mockito.ArgumentMatchers.anyString
 import org.mockito.kotlin.any
 import org.mockito.kotlin.given
 import org.springframework.beans.factory.annotation.Autowired
@@ -23,12 +24,15 @@ class SubjectHandlerTest {
     @Test
     fun `과목 생성`() {
         runBlocking {
-            given(subjectService.save()).willReturn(
+            given(subjectService.save(anyString())).willReturn(
                 Subject("과목")
             )
         }
 
+        val command = SubjectCreateCommand("과목")
+
         webTestClient.post().uri("/subject")
+            .bodyValue(command)
             .exchange()
             .expectStatus().isOk
     }
