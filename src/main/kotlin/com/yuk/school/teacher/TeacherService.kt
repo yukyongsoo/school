@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service
 class TeacherService(
     private val teacherRepository: TeacherRepository
 ) {
-    suspend fun save(): Teacher {
-        val entity = Teacher("선생님")
+    suspend fun save(name: String): Teacher {
+        val entity = Teacher(name)
 
         return teacherRepository.save(entity)
             ?: throw RuntimeException()
