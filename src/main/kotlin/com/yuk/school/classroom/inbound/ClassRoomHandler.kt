@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
+import org.springframework.web.reactive.function.server.awaitBody
 import org.springframework.web.reactive.function.server.bodyValueAndAwait
 import org.springframework.web.reactive.function.server.buildAndAwait
 import org.springframework.web.reactive.function.server.coRouter
@@ -29,7 +30,9 @@ class ClassRoomHandler(
     }
 
     suspend fun save(request: ServerRequest): ServerResponse {
-        classRoomService.save()
+        val command = request.awaitBody<ClassRoomCreateCommand>()
+
+        classRoomService.save(command.grade, command.name)
 
         return ServerResponse.ok().buildAndAwait()
     }

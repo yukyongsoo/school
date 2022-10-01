@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service
 class ClassRoomService(
     private val classRoomRepository: ClassRoomRepository
 ) {
-    suspend fun save(): ClassRoom {
-        val entity = ClassRoom(1, "1")
+    suspend fun save(grade: Int, name: String): ClassRoom {
+        val entity = ClassRoom(grade, name)
 
         val saved = classRoomRepository.save(entity)
             ?: throw RuntimeException()

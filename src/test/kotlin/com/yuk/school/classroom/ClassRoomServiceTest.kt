@@ -25,7 +25,7 @@ class ClassRoomServiceTest {
                 ClassRoom(1, "1")
             )
 
-            val saved = classRoomService.save()
+            val saved = classRoomService.save(1, "1")
 
             assertThat(saved.grade).isEqualTo(1)
             assertThat(saved.name).isEqualTo("1")

@@ -5,6 +5,8 @@ import com.yuk.school.classroom.ClassRoom
 import com.yuk.school.classroom.ClassRoomService
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
+import org.mockito.ArgumentMatchers.anyInt
+import org.mockito.ArgumentMatchers.anyString
 import org.mockito.kotlin.any
 import org.mockito.kotlin.given
 import org.springframework.beans.factory.annotation.Autowired
@@ -26,13 +28,16 @@ class ClassRoomHandlerTest {
     @Test
     fun `신규 반 생성`() {
         runBlocking {
-            given(classRoomService.save()).willReturn(
+            given(classRoomService.save(anyInt(), anyString())).willReturn(
                 ClassRoom(1, "1")
             )
         }
 
+        val command = ClassRoomCreateCommand(1, "1")
+
         webTestClient.post()
             .uri("/classroom")
+            .bodyValue(command)
             .exchange()
             .expectStatus().isOk
     }
