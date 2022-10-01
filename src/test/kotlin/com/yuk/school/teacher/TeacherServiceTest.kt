@@ -24,7 +24,7 @@ class TeacherServiceTest {
                 Teacher("선생님")
             )
 
-            teacherService.save()
+            teacherService.save("선생님")
         }
     }
 

@@ -4,6 +4,7 @@ import com.yuk.school.teacher.Teacher
 import com.yuk.school.teacher.TeacherService
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
+import org.mockito.ArgumentMatchers.anyString
 import org.mockito.kotlin.any
 import org.mockito.kotlin.given
 import org.springframework.beans.factory.annotation.Autowired
@@ -23,12 +24,15 @@ class TeacherHandlerTest {
     @Test
     fun `선생님 신규 추가`() {
         runBlocking {
-            given(teacherService.save()).willReturn(
+            given(teacherService.save(anyString())).willReturn(
                 Teacher("선생님")
             )
         }
 
+        val command = TeacherCreateCommand("선생님")
+
         webTestClient.post().uri("/teacher")
+            .bodyValue(command)
             .exchange()
             .expectStatus().isOk
     }
