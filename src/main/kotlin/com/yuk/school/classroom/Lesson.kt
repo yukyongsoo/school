@@ -8,12 +8,16 @@ data class Lesson(
     private val teacherId: TeacherId,
     private val subjectId: SubjectId,
     val lessonTime: LessonTime
-)
+) : Comparable<Lesson> {
+    override fun compareTo(other: Lesson): Int {
+        return lessonTime.compareTo(other.lessonTime)
+    }
+}
 
 data class LessonTime(
     val start: LocalTime,
     val end: LocalTime
-) {
+) : Comparable<LessonTime> {
     companion object {
         private val schoolStart = LocalTime.of(9, 0)
         private val schoolEnd = LocalTime.of(16, 0)
@@ -31,5 +35,9 @@ data class LessonTime(
 
         if (end.isBefore(schoolEnd))
             throw IllegalArgumentException()
+    }
+
+    override fun compareTo(other: LessonTime): Int {
+        return start.compareTo(other.start)
     }
 }
