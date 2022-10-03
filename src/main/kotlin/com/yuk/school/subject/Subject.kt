@@ -2,7 +2,6 @@ package com.yuk.school.subject
 
 import nonapi.io.github.classgraph.json.Id
 import org.bson.types.ObjectId
-import org.springframework.data.annotation.Transient
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document
@@ -12,6 +11,6 @@ class Subject(
     @Id
     private var _id = ObjectId.get()
 
-    @Transient
-    val id = SubjectId(_id.toString())
+    val id
+        get() = SubjectId(_id.toString())
 }
