@@ -15,8 +15,8 @@ class Student(
     @Id
     private var _id: ObjectId = ObjectId.get()
 
-    @Transient
-    val id = StudentId(_id.toString())
+    val id
+        get() = StudentId(_id.toString())
 
     @Field("classRoomId")
     private var _classRoomId = classroomId.value

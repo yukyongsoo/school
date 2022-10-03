@@ -2,7 +2,6 @@ package com.yuk.school.classroom
 
 import org.bson.types.ObjectId
 import org.springframework.data.annotation.Id
-import org.springframework.data.annotation.Transient
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document
@@ -13,6 +12,6 @@ class ClassRoom(
     @Id
     private var _id: ObjectId = ObjectId.get()
 
-    @Transient
-    val id = ClassRoomId(_id.toString())
+    val id
+        get() = ClassRoomId(_id.toString())
 }
