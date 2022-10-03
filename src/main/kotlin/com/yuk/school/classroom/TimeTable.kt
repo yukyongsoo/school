@@ -20,4 +20,13 @@ class TimeTable(
 
     val lesson: Set<Lesson>
         get() = _lessons
+
+    fun addLesson(newLesson: Lesson) {
+        _lessons.forEach {
+            if (it.lessonTime.isOverlapping(newLesson.lessonTime))
+                throw IllegalArgumentException()
+        }
+
+        _lessons.add(newLesson)
+    }
 }

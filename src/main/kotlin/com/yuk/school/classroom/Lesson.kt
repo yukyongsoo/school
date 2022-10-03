@@ -12,6 +12,10 @@ data class Lesson(
     override fun compareTo(other: Lesson): Int {
         return lessonTime.compareTo(other.lessonTime)
     }
+
+    fun inRange(newLesson: Lesson) {
+        TODO("Not yet implemented")
+    }
 }
 
 data class LessonTime(
@@ -24,20 +28,26 @@ data class LessonTime(
     }
 
     init {
-        if (start.isBefore(end))
+        if (start.isAfter(end))
             throw IllegalArgumentException()
 
         if (start.plusHours(1) != end)
             throw IllegalArgumentException()
 
-        if (start.isAfter(schoolStart) && start.plusHours(1).isBefore(schoolEnd))
+        if (start.isBefore(schoolStart) && start.plusHours(1).isAfter(schoolEnd))
             throw IllegalArgumentException()
 
-        if (end.isBefore(schoolEnd))
+        if (end.isAfter(schoolEnd))
             throw IllegalArgumentException()
     }
 
     override fun compareTo(other: LessonTime): Int {
         return start.compareTo(other.start)
+    }
+
+    fun isOverlapping(lessonTime: LessonTime): Boolean {
+        return (lessonTime.start == start && lessonTime.end == end) ||
+            (lessonTime.start.isBefore(start) && lessonTime.end.isAfter(start)) ||
+            (lessonTime.start.isBefore(end) && lessonTime.end.isAfter(end))
     }
 }
