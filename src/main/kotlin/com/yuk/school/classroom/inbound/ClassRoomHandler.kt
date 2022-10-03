@@ -17,7 +17,7 @@ import org.springframework.web.reactive.function.server.coRouter
 class ClassRoomHandler(
     private val classRoomService: ClassRoomService
 ) {
-    @Bean
+    @Bean("classRoomRouter")
     @RouterOperations(
         RouterOperation(path = "/classroom", beanMethod = "save", beanClass = ClassRoomHandler::class),
         RouterOperation(path = "/classroom/{id}", beanMethod = "get", beanClass = ClassRoomHandler::class),

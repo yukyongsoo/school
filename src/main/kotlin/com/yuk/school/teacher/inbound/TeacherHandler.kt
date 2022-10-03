@@ -15,7 +15,7 @@ import org.springframework.web.reactive.function.server.coRouter
 class TeacherHandler(
     private val teacherService: TeacherService
 ) {
-    @Bean
+    @Bean("teacherRouter")
     fun route() = coRouter {
         "/teacher".nest {
             POST("", ::save)
