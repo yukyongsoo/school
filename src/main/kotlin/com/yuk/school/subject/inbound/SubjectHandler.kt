@@ -15,7 +15,7 @@ import org.springframework.web.reactive.function.server.coRouter
 class SubjectHandler(
     private val subjectService: SubjectService
 ) {
-    @Bean
+    @Bean("subjectRouter")
     fun route() = coRouter {
         "/subject".nest {
             POST("", ::save)
