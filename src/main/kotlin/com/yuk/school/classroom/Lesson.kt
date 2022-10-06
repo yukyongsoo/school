@@ -5,16 +5,12 @@ import com.yuk.school.teacher.TeacherId
 import java.time.LocalTime
 
 data class Lesson(
-    private val teacherId: TeacherId,
-    private val subjectId: SubjectId,
+    val teacherId: TeacherId,
+    val subjectId: SubjectId,
     val lessonTime: LessonTime
 ) : Comparable<Lesson> {
     override fun compareTo(other: Lesson): Int {
         return lessonTime.compareTo(other.lessonTime)
-    }
-
-    fun inRange(newLesson: Lesson) {
-        TODO("Not yet implemented")
     }
 }
 
