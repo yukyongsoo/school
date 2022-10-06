@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Field
 
 @Document
 class TimeTable(
-    classRoomId: ClassRoomId
+    val classRoomId: ClassRoomId
 ) {
     companion object {
         fun empty(classRoomId: ClassRoomId) = TimeTable(classRoomId)
