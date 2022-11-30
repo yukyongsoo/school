@@ -10,7 +10,7 @@ class TimeTableService(
         if (timeTableRepository.getOrNull(classRoomId) != null)
             throw IllegalStateException()
 
-        return timeTableRepository.save(TimeTable.empty(classRoomId))
+        return timeTableRepository.new(TimeTable.empty(classRoomId))
             ?: throw RuntimeException()
     }
 
@@ -22,6 +22,6 @@ class TimeTableService(
     suspend fun addLesson(classRoomId: ClassRoomId, newLesson: Lesson) {
         val timeTable = get(classRoomId)
         timeTable.addLesson(newLesson)
-        timeTableRepository.save(timeTable)
+        timeTableRepository.new(timeTable)
     }
 }

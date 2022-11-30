@@ -21,7 +21,7 @@ class ClassRoomServiceTest {
     @Test
     fun `신규 반 생성`() {
         runBlocking {
-            given(classRoomRepository.save(any())).willReturn(
+            given(classRoomRepository.new(any())).willReturn(
                 ClassRoom(1, "1")
             )
 

@@ -9,7 +9,7 @@ class ClassRoomService(
     suspend fun save(grade: Int, name: String): ClassRoom {
         val entity = ClassRoom(grade, name)
 
-        val saved = classRoomRepository.save(entity)
+        val saved = classRoomRepository.new(entity)
             ?: throw RuntimeException()
 
         return saved
