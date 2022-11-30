@@ -43,6 +43,7 @@ dependencies {
 	testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
 	testImplementation("org.testcontainers:junit-jupiter")
 	testImplementation("org.testcontainers:mongodb")
+	testImplementation("com.tngtech.archunit:archunit-junit5:1.0.1")
 }
 
 extra["testcontainersVersion"] = "1.17.3"

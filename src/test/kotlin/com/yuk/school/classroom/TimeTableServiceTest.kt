@@ -24,7 +24,7 @@ class TimeTableServiceTest {
     @Test
     fun `반 시간표 생성`() {
         runBlocking {
-            given(timeTableRepository.save(any())).willReturn(
+            given(timeTableRepository.new(any())).willReturn(
                 TimeTable.empty(ClassRoomId.fromString(getObjectId()))
             )
 
@@ -50,7 +50,7 @@ class TimeTableServiceTest {
                 TimeTable.empty(ClassRoomId.fromString(getObjectId()))
             )
 
-            given(timeTableRepository.save(any())).willReturn(
+            given(timeTableRepository.new(any())).willReturn(
                 TimeTable.empty(ClassRoomId.fromString(getObjectId()))
             )
 
