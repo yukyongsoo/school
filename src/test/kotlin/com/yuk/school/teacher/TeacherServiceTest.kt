@@ -20,7 +20,7 @@ class TeacherServiceTest {
     @Test
     fun `선생님 신규 생성`() {
         runBlocking {
-            given(teacherRepository.save(any())).willReturn(
+            given(teacherRepository.new(any())).willReturn(
                 Teacher("선생님")
             )
 
