@@ -20,7 +20,7 @@ class SubjectServiceTest {
     @Test
     fun `과목 생성`() {
         runBlocking {
-            given(subjectRepository.save(any())).willReturn(
+            given(subjectRepository.new(any())).willReturn(
                 Subject("과목")
             )
 

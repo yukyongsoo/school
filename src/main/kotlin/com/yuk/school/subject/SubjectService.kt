@@ -9,7 +9,7 @@ class SubjectService(
     suspend fun save(name: String): Subject {
         val entity = Subject(name)
 
-        return subjectRepository.save(entity)
+        return subjectRepository.new(entity)
             ?: throw RuntimeException()
     }
 
