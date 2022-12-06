@@ -22,7 +22,7 @@ class StudentServiceTest {
     @Test
     fun `학생 신규 등록`() {
         runBlocking {
-            given(studentRepository.save(any())).willReturn(
+            given(studentRepository.new(any())).willReturn(
                 Student("학생", ClassRoomId.fromString(getObjectId()))
             )
 

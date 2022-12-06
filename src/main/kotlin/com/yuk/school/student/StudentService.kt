@@ -18,7 +18,7 @@ class StudentService(
             classRoomId
         )
 
-        return studentRepository.save(entity)
+        return studentRepository.new(entity)
             ?: throw RuntimeException()
     }
 
