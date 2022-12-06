@@ -9,7 +9,7 @@ class TeacherService(
     suspend fun save(name: String): Teacher {
         val entity = Teacher(name)
 
-        return teacherRepository.save(entity)
+        return teacherRepository.new(entity)
             ?: throw RuntimeException()
     }
 
